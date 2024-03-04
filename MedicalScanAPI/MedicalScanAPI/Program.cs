@@ -1,11 +1,14 @@
 using MedicalScanAPI;
 using MedicalScanAPI.Repository.Implementation;
 using MedicalScanAPI.Repository.Interface;
+using MedicalScanAPI.Services.Implementation;
+using MedicalScanAPI.Services.Interface;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddControllers();
 builder.Services.AddDbContext<ApiContext>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
