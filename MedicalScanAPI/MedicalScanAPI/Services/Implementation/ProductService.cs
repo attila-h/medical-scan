@@ -1,42 +1,68 @@
-﻿using MedicalScanAPI.Model;
+﻿using AutoMapper;
+using MedicalScanAPI.Model.DTO;
+using MedicalScanAPI.Model.Entity;
 using MedicalScanAPI.Repository.Interface;
 using MedicalScanAPI.Services.Interface;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MedicalScanAPI.Services.Implementation
 {
-    public class ProductService : IProductService
+    public class ProductService : ControllerBase, IProductService
     {
         private IProductRepository productRepository;
+        private IMapper mapper;
 
-        public ProductService(IProductRepository productRepository) 
+        public ProductService(IProductRepository productRepository, IMapper mapper) 
         {
             this.productRepository = productRepository;
+            this.mapper = mapper;
         }
 
-        public Task<ActionResult<Product>> Create(Product entity)
+        public async Task<ActionResult<GetProductDTO>> Create(SetProductDTO dto)
         {
-            return productRepository.Create(entity);
+            ProductEntity entity = await productRepository.Create(mapper.Map<ProductEntity>(dto));
+            return Ok(mapper.Map<GetProductDTO>(entity));
         }
 
-        public Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            return productRepository.Delete(id);
+            ProductEntity? data = await productRepository.Get(id);
+            if (data == null)
+            {
+                return NotFound();
+            }
+            await productRepository.Delete(id);
+            return NoContent();
         }
 
-        public Task<ActionResult<Product>> Get(int id)
+        public async Task<ActionResult<GetProductDTO>> Get(int id)
         {
-            return productRepository.Get(id);
+            ProductEntity? entity = await productRepository.Get(id);
+            if (entity == null)
+            {
+                return NotFound();
+            }
+            return Ok(mapper.Map<GetProductDTO>(entity));
         }
 
-        public Task<ActionResult<IEnumerable<Product>>> GetAll()
+        public async Task<ActionResult<IEnumerable<GetProductDTO>>> GetAll()
         {
-            return productRepository.GetAll();
+            IEnumerable<ProductEntity> entities = await productRepository.GetAll();
+            IEnumerable<GetProductDTO> dtos = mapper.Map<IEnumerable<ProductEntity>, IEnumerable<GetProductDTO>>(entities);
+            return Ok(dtos);
         }
 
-        public Task<IActionResult> Update(int id, Product entity)
+        public async Task<IActionResult> Update(int id, SetProductDTO dto)
         {
-            return productRepository.Update(id, entity);
+            ProductEntity? entity = await productRepository.Get(id);
+            if (entity == null)
+            {
+                return NotFound();
+            }
+
+            entity = mapper.Map(dto, entity);
+            await productRepository.Update(entity); ;
+            return NoContent();
         }
     }
 }

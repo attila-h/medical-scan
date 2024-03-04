@@ -1,11 +1,10 @@
 ﻿using MedicalScanAPI.Model;
 using MedicalScanAPI.Repository.Interface;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace MedicalScanAPI.Repository.Abstract
 {
-    public abstract class RepositoryBase<T> : ControllerBase, IRepository<T> where T : class, IEntity
+    public abstract class RepositoryBase<T> : IRepository<T> where T : class, IEntity
     {
         protected readonly DbContext context;
         protected DbSet<T> dbSet;
@@ -17,47 +16,35 @@ namespace MedicalScanAPI.Repository.Abstract
         }
 
         //GetAll Request
-        public async Task<ActionResult<IEnumerable<T>>> GetAll()
+        public async Task<IEnumerable<T>> GetAll()
         {
-            var dataList = await dbSet.ToListAsync();
-            return Ok(dataList);
+            List<T> dataList = await dbSet.ToListAsync();
+            return dataList;
         }
 
         //Get Request
-        public async Task<ActionResult<T>> Get(int id)
+        public async Task<T?> Get(int id)
         {
-            var data = await dbSet.FindAsync(id);
-            if (data == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(data);
+            T? data = await dbSet.SingleOrDefaultAsync(e => e.Id == id);
+            return data;
         }
 
         //Create Request
-        public async Task<ActionResult<T>> Create(T entity)
+        public async Task<T> Create(T entity)
         {
+            DateTime now = DateTime.UtcNow;
+            entity.CreatedAt = now;
+            entity.UpdatedAt = now;
             dbSet.Add(entity);
             await context.SaveChangesAsync();
             return entity;
         }
 
         //Update Request
-        public async Task<IActionResult> Update(int id, T entity)
+        public async Task Update(T entity)
         {
-            if (id != entity.Id)
-            {
-                return BadRequest();
-            }
-
-            var data = await dbSet.FindAsync(id);
-            if (data == null)
-            {
-                return NotFound();
-            }
-
-            context.Entry(data).CurrentValues.SetValues(entity);
+            entity.UpdatedAt = DateTime.Now;
+            context.Entry(entity).CurrentValues.SetValues(entity);
 
             try
             {
@@ -67,22 +54,18 @@ namespace MedicalScanAPI.Repository.Abstract
             {
                 throw;
             }
-
-            return NoContent();
         }
 
         //Delete Request
-        public async Task<IActionResult> Delete(int id)
+        public async Task Delete(int id)
         {
-            var data = await dbSet.FindAsync(id);
-            if (data == null)
+            T? data = await dbSet.FindAsync(id);
+            if (data != null)
             {
-                return NotFound();
+                dbSet.Remove(data);
             }
 
-            dbSet.Remove(data);
             await context.SaveChangesAsync();
-            return NoContent();
         }
 
     }

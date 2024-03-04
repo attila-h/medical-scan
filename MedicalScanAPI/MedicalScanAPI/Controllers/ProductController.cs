@@ -1,4 +1,4 @@
-﻿using MedicalScanAPI.Model;
+﻿using MedicalScanAPI.Model.DTO;
 using MedicalScanAPI.Services.Interface;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,30 +19,30 @@ namespace MedicalScanAPI.Controllers
 
         // GET: api/<ProductController>
         [HttpGet]
-        public Task<ActionResult<IEnumerable<Product>>> Get()
+        public Task<ActionResult<IEnumerable<GetProductDTO>>> Get()
         {
             return productService.GetAll();
         }
 
         // GET api/<ProductController>/5
         [HttpGet("{id}")]
-        public Task<ActionResult<Product>> Get(int id)
+        public Task<ActionResult<GetProductDTO>> Get(int id)
         {
             return productService.Get(id);
         }
 
         // POST api/<ProductController>
         [HttpPost]
-        public Task<ActionResult<Product>> Post([FromBody] Product product)
+        public Task<ActionResult<GetProductDTO>> Post([FromBody] SetProductDTO dto)
         {
-            return productService.Create(product);
+            return productService.Create(dto);
         }
 
         // PUT api/<ProductController>/5
         [HttpPut("{id}")]
-        public Task<IActionResult> Put(int id, [FromBody] Product product)
+        public Task<IActionResult> Put(int id, [FromBody] SetProductDTO dto)
         {
-            return productService.Update(id, product);
+            return productService.Update(id, dto);
         }
 
         // DELETE api/<ProductController>/5

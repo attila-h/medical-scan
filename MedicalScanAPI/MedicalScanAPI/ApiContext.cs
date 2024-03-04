@@ -1,4 +1,4 @@
-﻿using MedicalScanAPI.Model;
+﻿using MedicalScanAPI.Model.Entity;
 using Microsoft.EntityFrameworkCore;
 
 namespace MedicalScanAPI
@@ -10,7 +10,7 @@ namespace MedicalScanAPI
             optionsBuilder.UseInMemoryDatabase(databaseName: "MedicalScanDb");
         }
 
-        public DbSet<Product> Products { get; set; }
+        public DbSet<ProductEntity>? Products { get; set; }
 
     }
 }
