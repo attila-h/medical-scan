@@ -40,7 +40,7 @@ namespace MedicalScanAPI.Controllers
 
         // PUT api/<ProductController>/5
         [HttpPut("{id}")]
-        public Task<IActionResult> Put(int id, [FromBody] SetProductDTO dto)
+        public Task<ActionResult<GetProductDTO>> Put(int id, [FromBody] SetProductDTO dto)
         {
             return productService.Update(id, dto);
         }

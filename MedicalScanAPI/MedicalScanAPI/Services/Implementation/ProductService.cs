@@ -52,7 +52,7 @@ namespace MedicalScanAPI.Services.Implementation
             return Ok(dtos);
         }
 
-        public async Task<IActionResult> Update(int id, SetProductDTO dto)
+        public async Task<ActionResult<GetProductDTO>> Update(int id, SetProductDTO dto)
         {
             ProductEntity? entity = await productRepository.Get(id);
             if (entity == null)
@@ -61,8 +61,8 @@ namespace MedicalScanAPI.Services.Implementation
             }
 
             entity = mapper.Map(dto, entity);
-            await productRepository.Update(entity); ;
-            return NoContent();
+            await productRepository.Update(entity);
+            return Ok(mapper.Map<GetProductDTO>(entity));
         }
     }
 }
