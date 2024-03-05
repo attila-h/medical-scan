@@ -9,7 +9,7 @@ import { environment } from '../../../environments/environment';
 })
 export class ProductService {
 
-  private readonly apiUrl = `${environment.api.baseUrl}/products`
+  private readonly apiUrl = `${environment.api.baseUrl}/product`
   private http = inject(HttpClient)
 
   constructor() { }
