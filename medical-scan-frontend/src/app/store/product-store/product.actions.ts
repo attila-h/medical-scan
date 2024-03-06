@@ -14,7 +14,7 @@ export const getProductsSuccess = createAction(
 export const createProduct = createAction(
     `${prefix} Create Product`,
     props<{
-        product: ProductI;
+        product: Partial<ProductI>;
     }>()
 );
 

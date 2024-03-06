@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ProductI } from '../../models/product.model';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -11,10 +11,12 @@ import * as fromProducts from '../../../store/product-store/index';
 })
 export class ProductListComponent implements OnInit {
 
+  private readonly store = inject(Store);
+  
   products$!: Observable<ProductI[]>;
   isLoading$!: Observable<boolean>;
 
-  constructor(private readonly store: Store) { }
+  constructor() { }
 
   ngOnInit(): void {
     this.initDispatch();

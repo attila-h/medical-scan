@@ -6,3 +6,11 @@ mat-card-content {
   flex-grow: 1;
   word-wrap: break-word;
 }
+
+.action-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}

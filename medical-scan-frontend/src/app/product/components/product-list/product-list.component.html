@@ -10,6 +10,9 @@
 
     </ng-container>
     <ng-container *ngIf="!data.isLoading">
+      <div class="action-container">
+        <button mat-raised-button color="primary" routerLink="create">Add new product</button>
+      </div>
       <div class="grid-container">
         @for (product of data.products; track product.id) {
           <mat-card class="col-1 col-md-2 col-lg-3 col-xl-4">

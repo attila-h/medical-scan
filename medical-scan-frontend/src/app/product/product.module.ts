@@ -5,20 +5,28 @@ import { ProductListComponent } from './components/product-list/product-list.com
 import { ProductStoreModule } from '../store/product-store/product-store.module';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
-import { EditProductComponent } from './components/edit-product/edit-product.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { ProductRoutingModule } from './product-routing.module';
+import { ProductCreateComponent } from './components/product-create/product-create.component';
+import { ProductFormComponent } from './components/product-form/product-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     ProductListComponent,
-    EditProductComponent,
+    ProductCreateComponent,
+    ProductFormComponent,
   ],
   imports: [
     CommonModule,
     ProductRoutingModule,
     ProductStoreModule,
+    ReactiveFormsModule,
     MatCardModule,
     MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [
     ProductService,
