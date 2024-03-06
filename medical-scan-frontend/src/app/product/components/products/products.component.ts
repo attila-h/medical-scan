@@ -21,6 +21,10 @@ export class ProductsComponent implements OnInit {
     this.initSubscriptions();
   }
 
+  onDelete(product: ProductI): void {
+    this.store.dispatch(fromProducts.deleteProduct({product}));
+  }
+
   private initDispatch(): void {
     this.store.dispatch(fromProducts.getProducts());
   }
