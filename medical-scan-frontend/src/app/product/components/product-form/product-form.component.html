@@ -1,24 +1,24 @@
   <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
     <mat-form-field appearance="fill">
       <mat-label>Name</mat-label>
-      <input matInput formControlName="name" required>
-      <mat-error *ngIf="productForm.get('name')?.invalid && (productForm.get('name')?.dirty || productForm.get('name')?.touched)">
+      <input id="product-name-input" matInput formControlName="name" required>
+      <mat-error id="product-name-input-error" *ngIf="productForm.get('name')?.invalid && (productForm.get('name')?.dirty || productForm.get('name')?.touched)">
         Name is required.
       </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
       <mat-label>Description</mat-label>
-      <textarea matInput formControlName="description" required></textarea>
-      <mat-error *ngIf="productForm.get('description')?.invalid && (productForm.get('description')?.dirty || productForm.get('description')?.touched)">
+      <textarea id="product-description-input" matInput formControlName="description" required></textarea>
+      <mat-error id="product-description-input-error" *ngIf="productForm.get('description')?.invalid && (productForm.get('description')?.dirty || productForm.get('description')?.touched)">
         Description is required.
       </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
       <mat-label>Price</mat-label>
-      <input matInput type="number" formControlName="price" required>
-      <mat-error *ngIf="productForm.get('price')?.invalid && (productForm.get('price')?.dirty || productForm.get('price')?.touched)">
+      <input id="product-price-input" matInput type="number" formControlName="price" required>
+      <mat-error id="product-price-input-error" *ngIf="productForm.get('price')?.invalid && (productForm.get('price')?.dirty || productForm.get('price')?.touched)">
         <span *ngIf="productForm.get('price')?.getError('required')">Price is required.</span>
         <span *ngIf="productForm.get('price')?.getError('min')">Price must be greater than or equal to {{ productForm.get('price')?.getError('min')?.min }}.</span>
       </mat-error>
