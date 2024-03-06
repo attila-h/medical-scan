@@ -5,11 +5,11 @@ import { Observable } from 'rxjs';
 import * as fromProducts from '../../../store/product-store/index';
 
 @Component({
-  selector: 'app-products',
-  templateUrl: './products.component.html',
-  styleUrl: './products.component.scss'
+  selector: 'app-product-list',
+  templateUrl: './product-list.component.html',
+  styleUrl: './product-list.component.scss'
 })
-export class ProductsComponent implements OnInit {
+export class ProductListComponent implements OnInit {
 
   products$!: Observable<ProductI[]>;
   isLoading$!: Observable<boolean>;
