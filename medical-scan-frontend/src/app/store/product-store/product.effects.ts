@@ -36,6 +36,7 @@ export class ProductEffects {
         this.actions$.pipe(
             ofType(fromProducts.updateProduct),
             switchMap(({product}) => this.productService.update(product)),
+            tap(() => this.snackBar.open('Successfully saved')),
             map((product: ProductI) => fromProducts.updateProductSuccess({product}))
         )
     );

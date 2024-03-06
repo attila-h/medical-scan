@@ -28,7 +28,7 @@ export const createProductSuccess = createAction(
 export const updateProduct = createAction(
     `${prefix} Update Product`,
     props<{
-        product: ProductI;
+        product: Partial<ProductI>;
     }>()
 );
 

@@ -1,0 +1,12 @@
+<div class="container">
+  <h2>Update Product</h2>
+  <ng-container *ngIf="isLoading">
+
+  </ng-container>
+  <ng-container *ngIf="!isLoading">
+    <ng-container *ngIf="product">
+      <app-product-form [product]="product" (submit)="onUpdate($event)"></app-product-form>
+    </ng-container>
+  </ng-container>
+  
+</div>

@@ -11,12 +11,14 @@ import { ProductRoutingModule } from './product-routing.module';
 import { ProductCreateComponent } from './components/product-create/product-create.component';
 import { ProductFormComponent } from './components/product-form/product-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ProductUpdateComponent } from './components/product-update/product-update.component';
 
 @NgModule({
   declarations: [
     ProductListComponent,
     ProductCreateComponent,
     ProductFormComponent,
+    ProductUpdateComponent,
   ],
   imports: [
     CommonModule,
