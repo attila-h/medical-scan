@@ -1,4 +1,7 @@
 <div class="container">
   <h2>Create Product</h2>
+  <div class="action-container">
+    <button mat-raised-button color="basic" routerLink="/products">Back</button>
+  </div>
   <app-product-form [product]="undefined" (submit)="onCreate($event)"></app-product-form>
 </div>
