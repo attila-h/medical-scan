@@ -23,7 +23,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         this.snackBar.open(errorMessage, 'Close', {
           panelClass: ['error-snackbar']
         });
-        return throwError(errorMessage);
+        return throwError(() => error);;
       })
     );
   }
