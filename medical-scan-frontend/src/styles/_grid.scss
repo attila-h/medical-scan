@@ -1,0 +1,62 @@
+// Define breakpoints for responsiveness
+$breakpoints: (
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px
+);
+
+$gutter: 10px;
+
+// Define a mixin for creating flex container
+@mixin flex-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+// Define a mixin for creating flex items
+@mixin flex-item($columns) {
+  $gutterWidthSum: $gutter * ($columns - 1);
+  flex: 0 0 auto;
+  width: calc((100% - $gutterWidthSum) / #{$columns});
+  margin-bottom: $gutter;
+  box-sizing: border-box;
+
+  &:nth-child(#{$columns}n) {
+    margin-right: 0;
+  }
+
+  &:not(:nth-child(#{$columns}n)) {
+    margin-right: $gutter;
+  }
+}
+
+// Define a container class
+.grid-container {
+  @include flex-container;
+}
+
+// Define column classes
+@for $i from 1 through 12 {
+  .col-#{$i} {
+    @include flex-item($i);
+  }
+}
+
+// Add responsiveness for breakpoints
+@each $breakpoint, $value in $breakpoints {
+  $breakpoint-name: unquote($breakpoint);
+  $breakpoint-value: $value;
+  
+  @media (min-width: $breakpoint-value) {
+    .grid-container {
+      @include flex-container;
+    }
+
+    @for $i from 1 through 12 {
+      .col-#{$breakpoint-name}-#{$i} {
+        @include flex-item($i);
+      }
+    }
+  }
+}

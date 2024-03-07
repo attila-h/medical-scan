@@ -1,0 +1,40 @@
+// Define breakpoints for responsiveness
+$breakpoints: (
+  small: 576px,
+  medium: 768px,
+  large: 992px,
+  x-large: 1200px
+);
+
+// Define container mixin
+@mixin container {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 15px;
+  padding-left: 15px;
+  box-sizing: border-box;
+  
+  @media (min-width: map-get($breakpoints, small)) {
+    padding-right: 0px;
+    padding-left: 0px;
+    max-width: map-get($breakpoints, small) - 36px;
+  }
+  
+  @media (min-width: map-get($breakpoints, medium)) {
+    max-width: map-get($breakpoints, medium) - 48px;
+  }
+  
+  @media (min-width: map-get($breakpoints, large)) {
+    max-width: map-get($breakpoints, large) - 48px;
+  }
+  
+  @media (min-width: map-get($breakpoints, x-large)) {
+    max-width: map-get($breakpoints, x-large) - 60px;
+  }
+}
+
+// Usage example
+.container {
+  @include container;
+}

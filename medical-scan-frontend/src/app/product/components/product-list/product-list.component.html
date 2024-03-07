@@ -1,0 +1,38 @@
+<div class="container">
+  <h2>Products</h2>
+  <ng-container
+    *ngIf="{
+        products: products$ | async,
+        isLoading: isLoading$ | async
+    } as data"
+  >
+    <ng-container *ngIf="data.isLoading">
+
+    </ng-container>
+    <ng-container *ngIf="!data.isLoading">
+      <div class="action-container">
+        <button mat-raised-button color="primary" routerLink="create">Add new product</button>
+      </div>
+      <div class="grid-container">
+        @for (product of data.products; track product.id) {
+          <mat-card class="col-1 col-md-2 col-lg-3 col-xl-4">
+            <mat-card-header>
+              <mat-card-title>{{ product.name }}</mat-card-title>
+              <mat-card-subtitle>{{ product.price }} Ft</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              {{ product.description }}
+            </mat-card-content>
+            <mat-card-actions align="end">
+              <button mat-button routerLink="update/{{product.id}}">EDIT</button>
+              <button mat-button color="warn" (click)="onDelete(product)">DELETE</button>
+            </mat-card-actions>
+          </mat-card>
+        } @empty {
+          There is no product available.
+        }
+      </div>
+    </ng-container>
+  </ng-container>
+
+</div>

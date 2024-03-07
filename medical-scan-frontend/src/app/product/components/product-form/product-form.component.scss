@@ -1,0 +1,11 @@
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.action-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
